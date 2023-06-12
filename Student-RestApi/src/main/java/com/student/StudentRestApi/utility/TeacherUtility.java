@@ -9,7 +9,9 @@ import java.util.List;
 
 public class TeacherUtility {
     public static void isValidYear(String year){
-        if(!year.equalsIgnoreCase("1")||!year.equalsIgnoreCase("2")){
+        if(year.equalsIgnoreCase("1")||year.equalsIgnoreCase("2")){
+
+        }else{
             throw new ValidYearException(year+" is invalid year");
         }
     }
