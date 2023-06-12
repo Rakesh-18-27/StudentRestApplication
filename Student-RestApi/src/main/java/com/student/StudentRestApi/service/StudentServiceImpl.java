@@ -1,6 +1,8 @@
 package com.student.StudentRestApi.service;
 
 import com.student.StudentRestApi.model.StudentModel;
+import com.student.StudentRestApi.utility.StudentUtility;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -11,6 +13,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService{
+
+
     List<StudentModel> students=new ArrayList<>();
 
     @Override
@@ -21,7 +25,7 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public List<StudentModel> getAll() {
-
+        StudentUtility.checkIsStudentsEmpty(students);
         return students;
     }
 
