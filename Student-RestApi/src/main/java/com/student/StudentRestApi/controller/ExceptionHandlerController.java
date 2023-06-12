@@ -35,4 +35,9 @@ public class ExceptionHandlerController {
     public ResponseEntity<String> handleNoOneFoundWithThisIdException(NoOneFoundWithThisId noOneFoundWithThisId){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(noOneFoundWithThisId.getMessage());
     }
+
+    @ExceptionHandler(ValidYearException.class)
+    public ResponseEntity<String> handleValidYearException(ValidYearException validYearException){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(validYearException.getMessage());
+    }
 }

@@ -21,7 +21,7 @@ public class TeacherController {
     }
 
     @PostMapping("/addTeacher")
-    public List<TeacherModel> addStudent(@RequestBody TeacherModel teacherModel){
+    public List<TeacherModel> addTeacher(@RequestBody TeacherModel teacherModel){
         return teacherService.addStudent(teacherModel);
     }
 

@@ -1,9 +1,11 @@
 package com.student.StudentRestApi.service;
 
+import com.student.StudentRestApi.exception.NoOneFoundWithThisId;
 import com.student.StudentRestApi.exception.NoOneTeachesException;
 import com.student.StudentRestApi.exception.SubjectNotFoundException;
 import com.student.StudentRestApi.model.Subject;
 import com.student.StudentRestApi.model.TeacherModel;
+import com.student.StudentRestApi.utility.TeacherUtility;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -35,13 +37,16 @@ TeacherModel deletedTeacher=teachers.stream().filter(teacherModel -> teacherMode
     @Override
     public TeacherModel getById(Integer id) {
 
-        return teachers.stream()
-                .filter(teacherModel -> teacherModel.getId()==id).collect(Collectors.toList()).get(0);
+        List<TeacherModel> teacherModels= teachers.stream()
+                .filter(teacherModel -> teacherModel.getId()==id).collect(Collectors.toList());
+        TeacherUtility.isValidId(id,teacherModels);
+        return teachers.get(0);
 
     }
 
     @Override
     public List<TeacherModel> getTeachersByYear(String year) {
+        TeacherUtility.isValidYear(year);
         return teachers.stream()
                 .filter(teacher->teacher.getSubjects().stream().anyMatch(sub->sub.getBranch().getBranchYear().equalsIgnoreCase(year)))
                 .collect(Collectors.toList());
