@@ -46,6 +46,7 @@ return  teacherService.getTeacherBySubject(subject);
     }
     @GetMapping("/getTeachersTeaches3Subjects")
     public List<TeacherModel> getTeachersTeaches3Subjects(){
+
         return teacherService.getTeachersTeachesThree();
     }
 

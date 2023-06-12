@@ -8,6 +8,9 @@ public class StudentModel {
     private String studentEmail;
     private Branch branch;
 
+    private Marks marks;
+
+
     public Integer getStudentId() {
         return studentId;
     }
@@ -17,7 +20,6 @@ public class StudentModel {
     }
 
     private List<Attendence> attendence;
-    private Marks marks;
     public Marks getMarks() {
         return marks;
     }

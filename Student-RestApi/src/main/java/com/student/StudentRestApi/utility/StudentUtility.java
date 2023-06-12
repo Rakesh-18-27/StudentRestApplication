@@ -15,7 +15,5 @@ public class StudentUtility {
         }
     }
 
-    public static void validateSubject(){
 
-    }
 }

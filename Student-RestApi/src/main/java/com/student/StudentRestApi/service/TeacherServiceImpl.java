@@ -1,5 +1,7 @@
 package com.student.StudentRestApi.service;
 
+import com.student.StudentRestApi.exception.NoOneTeachesException;
+import com.student.StudentRestApi.exception.SubjectNotFoundException;
 import com.student.StudentRestApi.model.Subject;
 import com.student.StudentRestApi.model.TeacherModel;
 import org.springframework.stereotype.Service;
@@ -47,9 +49,13 @@ TeacherModel deletedTeacher=teachers.stream().filter(teacherModel -> teacherMode
 
     @Override
     public TeacherModel getTeacherBySubject(String subject) {
-        return teachers.stream().filter(teacher -> teacher.getAttendence().stream().anyMatch(i->i.getAttendedDate().equalsIgnoreCase(LocalDate.now().toString())))
-                .filter(teacher->teacher.getSubjects().stream().anyMatch(sub->sub.getSubjectName().equalsIgnoreCase(subject))).collect(Collectors.toList()).get(0);
-
+      List<TeacherModel> teacherModels= teachers.stream().filter(teacher -> teacher.getAttendence().stream().anyMatch(i->i.getAttendedDate().equalsIgnoreCase(LocalDate.now().toString())))
+                .filter(teacher->teacher.getSubjects().stream().anyMatch(sub->sub.getSubjectName().equalsIgnoreCase(subject))).collect(Collectors.toList());
+        if(teacherModels.isEmpty()){
+                     throw new SubjectNotFoundException("Enter valid Subject");
+                        }else {
+            return teacherModels.get(0);
+        }
     }
 
     @Override
@@ -65,7 +71,9 @@ TeacherModel deletedTeacher=teachers.stream().filter(teacherModel -> teacherMode
                     }
                     return count > 2 ? true : false;
                 }).collect(Collectors.toList());
-
+        if(teachersTeachesThree.isEmpty()){
+                throw new NoOneTeachesException("At present no one teaches three subjects in our organization");
+            }
         return teachersTeachesThree;
     }
 }
