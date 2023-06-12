@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,12 +21,13 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public List<StudentModel> getAll() {
-       return students;
+
+        return students;
     }
 
     @Override
     public List<StudentModel> deleteById(Integer id) {
-        StudentModel studentModels=students.stream().filter(studentModel -> studentModel.getStudentId()==id)
+        StudentModel studentModels=students.stream().filter(studentModel -> Objects.equals(studentModel.getStudentId(), id))
                 .collect(Collectors.toList()).get(0);
         if(studentModels!=null){
             students.remove(studentModels);

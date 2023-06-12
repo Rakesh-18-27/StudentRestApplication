@@ -14,6 +14,7 @@ public class StudentController {
     private StudentService studentService;
     @GetMapping("/getAll")
     public List<StudentModel> getAll(){
+
         return studentService.getAll();
     }
 
@@ -24,11 +25,13 @@ public class StudentController {
 
     @GetMapping("/getById/{id}")
     public StudentModel getById(@PathVariable Integer id){
+
         return studentService.getById(id);
     }
 
     @DeleteMapping("/deleteById/{id}")
     public List<StudentModel> deleteById(@PathVariable Integer id){
+
         return studentService.deleteById(id);
     }
 
