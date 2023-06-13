@@ -1,10 +1,16 @@
 package com.student.StudentRestApi.model;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+
 import java.util.List;
 
 public class StudentModel {
     private Integer studentId;
+    @NotEmpty
     private String studentName;
+
+    @Email
     private String studentEmail;
     private Branch branch;
 

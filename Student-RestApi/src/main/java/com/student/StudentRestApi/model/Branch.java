@@ -1,7 +1,11 @@
 package com.student.StudentRestApi.model;
+
+import jakarta.validation.constraints.Size;
+
 public class Branch {
     private Integer branchId;
     private String branchName;
+    @Size(min = 1,max = 1)
     private String branchYear;
     public Integer getBranchId() {
         return branchId;

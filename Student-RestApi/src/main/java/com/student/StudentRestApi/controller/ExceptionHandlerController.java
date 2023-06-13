@@ -40,4 +40,9 @@ public class ExceptionHandlerController {
     public ResponseEntity<String> handleValidYearException(ValidYearException validYearException){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(validYearException.getMessage());
     }
+
+    @ExceptionHandler(NotValidException.class)
+    public ResponseEntity<String>  handleNotValidException(NotValidException notValidException){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(notValidException.getMessage());
+    }
 }

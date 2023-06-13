@@ -1,9 +1,14 @@
 package com.student.StudentRestApi.controller;
 import java.util.List;
+
+import com.student.StudentRestApi.exception.NotValidException;
 import com.student.StudentRestApi.model.StudentModel;
 import com.student.StudentRestApi.model.TeacherModel;
 import com.student.StudentRestApi.service.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,7 +24,14 @@ public class StudentController {
     }
 
     @PostMapping("/addStudent")
-    public List<StudentModel> addStudent(@RequestBody StudentModel studentModel){
+    public List<StudentModel> addStudent(@Valid @RequestBody StudentModel studentModel, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+           FieldError error =bindingResult.getFieldErrors().get(0);
+                String fieldName = error.getField();
+                String errorMessage = error.getDefaultMessage();
+                throw new NotValidException(fieldName+" "+errorMessage);
+
+        }
         return studentService.addStudent(studentModel);
     }
 
