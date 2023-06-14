@@ -4,6 +4,7 @@ import com.student.StudentRestApi.model.StudentModel;
 import com.student.StudentRestApi.model.TeacherModel;
 import com.student.StudentRestApi.service.StudentService;
 import com.student.StudentRestApi.service.TeacherService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class TeacherController {
     }
 
     @PostMapping("/addTeacher")
-    public List<TeacherModel> addTeacher(@RequestBody TeacherModel teacherModel){
+    public List<TeacherModel> addTeacher(@Valid @RequestBody TeacherModel teacherModel){
         return teacherService.addStudent(teacherModel);
     }
 

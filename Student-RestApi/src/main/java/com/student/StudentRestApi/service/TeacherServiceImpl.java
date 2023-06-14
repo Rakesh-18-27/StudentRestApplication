@@ -6,13 +6,16 @@ import com.student.StudentRestApi.exception.SubjectNotFoundException;
 import com.student.StudentRestApi.model.Subject;
 import com.student.StudentRestApi.model.TeacherModel;
 import com.student.StudentRestApi.utility.TeacherUtility;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 @Service
+@Validated
 public class TeacherServiceImpl implements TeacherService{
 
     List<TeacherModel> teachers=new ArrayList<>();
@@ -35,8 +38,8 @@ TeacherModel deletedTeacher=teachers.stream().filter(teacherModel -> teacherMode
     }
 
     @Override
-    public TeacherModel getById(Integer id) {
-
+    public TeacherModel getById(@NotEmpty(message = "id cannot be empty") Integer id) {
+    TeacherUtility.isTeachersEmpty(teachers);
         List<TeacherModel> teacherModels= teachers.stream()
                 .filter(teacherModel -> teacherModel.getId()==id).collect(Collectors.toList());
         TeacherUtility.isValidId(id,teacherModels);
@@ -46,6 +49,7 @@ TeacherModel deletedTeacher=teachers.stream().filter(teacherModel -> teacherMode
 
     @Override
     public List<TeacherModel> getTeachersByYear(String year) {
+        TeacherUtility.isTeachersEmpty(teachers);
         TeacherUtility.isValidYear(year);
         return teachers.stream()
                 .filter(teacher->teacher.getSubjects().stream().anyMatch(sub->sub.getBranch().getBranchYear().equalsIgnoreCase(year)))
@@ -54,6 +58,7 @@ TeacherModel deletedTeacher=teachers.stream().filter(teacherModel -> teacherMode
 
     @Override
     public TeacherModel getTeacherBySubject(String subject) {
+        TeacherUtility.isTeachersEmpty(teachers);
       List<TeacherModel> teacherModels= teachers.stream().filter(teacher -> teacher.getAttendence().stream().anyMatch(i->i.getAttendedDate().equalsIgnoreCase(LocalDate.now().toString())))
                 .filter(teacher->teacher.getSubjects().stream().anyMatch(sub->sub.getSubjectName().equalsIgnoreCase(subject))).collect(Collectors.toList());
         if(teacherModels.isEmpty()){

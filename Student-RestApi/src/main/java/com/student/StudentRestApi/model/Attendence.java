@@ -1,6 +1,9 @@
 package com.student.StudentRestApi.model;
 
+import jakarta.validation.constraints.PastOrPresent;
+
 public class Attendence {
+
     private String attendedDate;
     private Boolean isAttended;
     @Override

@@ -6,10 +6,12 @@ public class Marks {
     private Map<String,Integer> marks;
 
     public Map<String, Integer> getMarks() {
+
         return marks;
     }
 
     public void setMarks(Map<String, Integer> marks) {
+
         this.marks = marks;
     }
 
@@ -19,11 +21,13 @@ public class Marks {
     }
 
     public Marks() {
+
         super();
     }
 
     @Override
     public String toString() {
+
         return "Marks [marks=" + marks + "]";
     }
 

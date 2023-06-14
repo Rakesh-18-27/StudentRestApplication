@@ -25,14 +25,8 @@ public class StudentController {
 
     @PostMapping("/addStudent")
     public List<StudentModel> addStudent(@Valid @RequestBody StudentModel studentModel, BindingResult bindingResult){
-        if (bindingResult.hasErrors()) {
-           FieldError error =bindingResult.getFieldErrors().get(0);
-                String fieldName = error.getField();
-                String errorMessage = error.getDefaultMessage();
-                throw new NotValidException(fieldName+" "+errorMessage);
 
-        }
-        return studentService.addStudent(studentModel);
+        return studentService.addStudent(studentModel,bindingResult);
     }
 
     @GetMapping("/getById/{id}")
