@@ -3,9 +3,12 @@ package com.student.StudentRestApi.service;
 import com.student.StudentRestApi.exception.*;
 import com.student.StudentRestApi.model.StudentModel;
 import com.student.StudentRestApi.utility.StudentUtility;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,6 +17,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
+@Validated
 public class StudentServiceImpl implements StudentService {
 
 
@@ -39,7 +43,7 @@ public class StudentServiceImpl implements StudentService {
     public List<StudentModel> deleteById(Integer id) throws StudentsNotFoundException {
         StudentUtility.checkIsStudentsEmpty(students);
         StudentModel studentModels = students.stream().filter(studentModel -> Objects.equals(studentModel.getStudentId(), id))
-                .collect(Collectors.toList()).get(0);
+                .toList().get(0);
         if (studentModels != null) {
             students.remove(studentModels);
         }
@@ -47,7 +51,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentModel getById(Integer id) {
+    public StudentModel getById(@NotNull(message = "id cannot bel null") Integer id) {
         StudentUtility.checkIsStudentsEmpty(students);
         List<StudentModel> studentModels = students.stream()
                 .filter(student -> student.getStudentId() == id).collect(Collectors.toList());
